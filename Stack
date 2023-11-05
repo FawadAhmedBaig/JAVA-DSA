@@ -1,0 +1,68 @@
+class Stack{
+	class Node {
+ 	   int data;
+ 	   Node next;
+
+// Constructor to create a new node, Next is by default initialized as null
+	  Node(int d) {
+            data = d;
+            next = null;
+    	}
+}
+
+
+    Node head = null;
+    int size = 0;
+
+void push(int d) {   // Add elements to the stack
+        Node n = new Node(d); // Create a new node with the given data
+
+        if (head == null) {
+            head = n; // If the stack is empty, set the new node as the head
+        } else {
+            n.next = head; // Make the new node point to the current head
+            head = n; // Update the head to the new node
+        }
+        size++;
+        System.out.println(size + ": Nodes is inserted in the Stack " ); // Display the total number of nodes in the stack
+    }
+
+void pop() {  // Remove the top element from the stack
+        if (head == null) {
+            System.out.println("Stack is empty!!!!");
+        } else {
+            head = head.next; // Remove the top element by updating the head to the next node
+            size--;
+        }
+        System.out.println("\nTotal Nodes in the Stack after Pop: " + size); // Display the total number of nodes in the stack
+    }
+
+void peek() {   // Display the stack
+        if (head == null) {
+            System.out.println("Stack is empty!!!!");
+        } else {
+            System.out.print("The Top Element in the Stack: ");
+            System.out.println(head.data); // Display the data of the top element
+        }
+    }
+
+    public static void main(String[] args) {
+        Stack stack = new Stack(); // Create an instance of the Stack class
+
+        stack.push(1); // Add elements to the stack
+        stack.push(2);
+        stack.push(3);
+        stack.push(4);
+
+        System.out.println("\nOriginal Stack:");
+        stack.peek(); // Display the original stack
+
+        stack.pop(); // Remove the top element from the stack
+
+        System.out.println("\nUpdated Stack:");
+        stack.peek(); // Display the updated stack
+
+        int totalNodes = stack.size; // Get the total number of nodes in the stack
+        System.out.println("\nTotal Nodes in the Stack: " + totalNodes); // Display the total number of nodes in the stack
+    }
+}
