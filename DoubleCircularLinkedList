@@ -1,246 +1,228 @@
-class DoubleCircularLinkedList{
+class DoubleCircularLinkedList {
 
-class Node{
-int data;
-Node next;
-Node prev;
+    class Node {
+        int data;
+        Node next;
+        Node prev;
 
-Node(int d){
-data = d;
-next = null;
-prev = null;
-}
-}
+        Node(int d) {
+            data = d;
+            next = null;
+            prev = null;
+        }
+    }
 
-int size, i, mid = 0;
-Node head=null;
-Node tail=null;
+    int size, i, mid = 0;
+    Node head = null;
+    Node tail = null;
 
-void insertAtFirst(int val){
-Node n = new Node(val);
-if(head==null){
-head=n;
-head.next = head;
-head.prev = head;
-tail = head;
-}
-else
-{
-n.next = head;
-head.prev = n;
-head = n;
-tail.next = head;
-head.prev = tail;
-}
-size++;
-}
+    void insertAtFirst(int val) {
+        Node n = new Node(val);
+        if (head == null) {
+            head = n;
+            head.next = head;
+            head.prev = head;
+            tail = head;
+        } else {
+            n.next = head;
+            head.prev = n;
+            head = n;
+            tail.next = head;
+            head.prev = tail;
+        }
+        size++;
+    }
 
-void insertAtLast(int val){
-Node n = new Node(val);
-if(head==null){
-head=n;
-head.next= head;
-head.prev = head;
-tail = head;
-}
-else
-{
-tail.next = n;
-n.prev = tail;
-tail = n;
-tail.next = head;
-head.prev = tail;
-}
-size++;
-}
+    void insertAtLast(int val) {
+        Node n = new Node(val);
+        if (head == null) {
+            head = n;
+            head.next = head;
+            head.prev = head;
+            tail = head;
+        } else {
+            tail.next = n;
+            n.prev = tail;
+            tail = n;
+            tail.next = head;
+            head.prev = tail;
+        }
+        size++;
+    }
 
+    void insertAtIndex(int index, int val) {
+        i = 0;
+        Node n = new Node(val);
+        if (head == null) {
+            head = n;
+            head.next = head;
+            head.prev = head;
+            tail = head;
+        } else {
+            Node current = head;
+            Node prev = current;
+            while (current.next != head) {
+                if (i == index) {
+                    prev.next = n;
+                    n.prev = prev;
+                    n.next = current;
+                    current.prev = n;
+                }
+                i++;
+                prev = current;
+                current = current.next;
+            }
+            if (i == index) {
+                prev.next = n;
+                n.prev = prev;
+                n.next = current;
+                current.prev = n;
+            } else {
+                System.out.println("Index Out of Bound Error!");
+            }
+        }
+        size++;
+    }
 
+    void updateValue(int index, int val) {
+        int loc = -1;
+        i = 0;
+        if (head == null) {
+            System.out.println("List is empty!");
+        } else {
+            Node current = head;
+            Node prev = current;
+            while (current.next != head) {
+                if (i == index) {
+                    current.data = val;
+                    System.out.println("The value at index " + i + " is updated to " + val);
+                    loc++;
+                    return;
+                }
+                i++;
+                prev = current;
+                current = current.next;
+            }
+            if (i == index) {
+                current.data = val;
+                System.out.println("The value at index " + i + " is updated to : " + val);
+                loc++;
+                return;
+            }
+            if (loc == -1) {
+                System.out.println("Index not found!");
+            }
+        }
+    }
 
-void insertAtIndex(int index , int val){
-i = 0;
-Node n = new Node(val);
-if(head==null){
-head=n;
-head.next = head;
-head.prev = head;
-tail = head;
-}
-else{
-Node current = head;
-Node prev = current;
-while(current.next != head){
-if(i==index){
-prev.next = n;
-n.prev = prev;
-n.next = current;
-current.prev = n;
-}
-i++;
-prev = current;
-current = current.next;
-}
-if(i==index){
-prev.next = n;
-n.prev = prev;
-n.next = current;
-current.prev = n;
-}
-else{
-System.out.println("Index Out of Bound Error!");
-}
-}
-size++;
-}
+    void delFromFirst() {
+        if (head == null) {
+            System.out.println("List is empty!");
+        } else {
+            head = head.next;
+            tail.next = head;
+            head.prev = tail;
+            size--;
+        }
+    }
 
-void updateValue(int index, int val){
-int loc = -1;
-i = 0;
-if(head==null){
-System.out.println("List is empty!");
-}
-else{
-Node current = head;
-Node prev = current;
-while(current.next!= head){
-if(i==index){
-current.data = val;
-System.out.println("The value at index " + i + "is updated to" + val);
-loc++;
-return;
-}
+    void delFromLast() {
+        if (head == null) {
+            System.out.println("List is empty!");
+        } else {
+            Node current = head;
+            Node prev = current;
+            while (current.next != head) {
+                prev = current;
+                current = current.next;
+            }
+            prev.next = head;
+            head.prev = prev;
+            tail = prev;
+            size--;
+        }
+    }
 
-i++;
-prev = current;
-current = current.next;
-}
-if(i==index){
-current.data = val;
-System.out.println("The value at index " + i + " is updated to : " + val);
-loc++;
-return;
-}
-if(loc==-1){
-System.out.println("index not found!");
-}
-}
-}
+    void delFromIndex(int index) {
+        i = 0;
+        if (head == null) {
+            System.out.println("List is empty!");
+        } else {
+            Node current = head;
+            Node prev = current;
+            while (current.next != head) {
+                if (i == index) {
+                    current = current.next;
+                    prev.next = current;
+                    current.prev = prev;
+                }
+                i++;
+                prev = current;
+                current = current.next;
+            }
+            if (i == index) {
+                prev.next = head;
+                head.prev = prev;
+                tail = prev;
+            }
+        }
+        size--;
+    }
 
-void delFromFirst(){
-if(head==null){
-System.out.println("List is empty!");
-}
-else{
-head = head.next;
-tail.next = head;
-head.prev = tail;
-size--;
-}
-}
+    void display() {
+        if (head == null) {
+            System.out.println("List is empty!");
+        } else {
+            Node current = head;
+            while (current != tail) {
+                System.out.print(current.data + "->");
+                current = current.next;
+            }
+            System.out.print(current.data);
+            System.out.println();
+        }
+    }
 
-void delFromLast(){
-if(head==null){
-System.out.println("List is empty!");
-}
-else{
-Node current = head;
-Node prev = current;
-while(current.next != head){
-prev = current;
-current = current.next;
-}
-prev.next = head;
-head.prev = prev;
-tail = prev;
-size--;
-}
-}
+    void reverseDisplay() {
+        if (head == null) {
+            System.out.println("List is empty!");
+        } else {
+            Node current = tail;
+            while (current != head) {
+                System.out.print(current.data + "->");
+                current = current.prev;
+            }
+            System.out.print(current.data);
+            System.out.println();
+        }
+    }
 
+    public static void main(String[] a) {
+        DoubleCircularLinkedList dcl = new DoubleCircularLinkedList();
+        dcl.insertAtFirst(23);
+        dcl.display();
+        dcl.insertAtFirst(12);
+        dcl.display();
+        dcl.insertAtLast(55);
+        dcl.display();
+        dcl.insertAtLast(34);
+        dcl.display();
+        dcl.insertAtIndex(4, 78);
+        dcl.display();
+        dcl.reverseDisplay();
 
-void delFromIndex(int index){
-i = 0;
-if(head==null){
-System.out.println("List is empty!");
-}
-else{
-Node current = head;
-Node prev = current;
-while(current.next!= head){
-if(i==index){
-current = current.next;
-prev.next = current;
-current.prev = prev;
-}
-i++;
-prev = current;
-current = current.next;
-}
-if(i==index){
-prev.next = head;
-head.prev = prev;
-tail = prev;
-}
-}
-size--;
-}
+        dcl.updateValue(3, 89);
+        dcl.display();
 
-void display(){
-if(head==null){
-System.out.println("List is empty!");
+        dcl.delFromFirst();
+        dcl.display();
+        dcl.delFromLast();
+        dcl.display();
+        dcl.reverseDisplay();
+        dcl.insertAtLast(99);
+        dcl.display();
+        dcl.delFromIndex(2);
+        dcl.display();
+    }
 }
-else{
-Node current = head;
-while(current!=tail){
-System.out.print(current.data + "->");
-current = current.next;
-}
-System.out.print(current.data);
-System.out.println();
-}
-}
-
-void reverseDisplay(){
-if(head==null){
-System.out.println("List is empty!");
-}
-else{
-Node current = tail;
-while(current!=head){
-System.out.print(current.data + "->");
-current = current.prev;
-}
-System.out.print(current.data);
-System.out.println();
-}
-}
-
-public static void main(String[] a){
-DoubleCircularLinkedList dcl = new DoubleCircularLinkedList();
-dcl.insertAtFirst(23);
-dcl.display();
-dcl.insertAtFirst(12);
-dcl.display();
-dcl.insertAtLast(55);
-dcl.display();
-dcl.insertAtLast(34);
-dcl.display();
-dcl.insertAtIndex(4,78);
-dcl.display();
-dcl.reverseDisplay();
-
-dcl.updateValue(3,89);
-dcl.display();
-
-dcl.delFromFirst();
-dcl.display();
-dcl.delFromLast();
-dcl.display();
-dcl.reverseDisplay();
-dcl.insertAtLast(99);
-dcl.display();
-dcl.delFromIndex(2);
-dcl.display();
-
-
-}
-
-}
+```
