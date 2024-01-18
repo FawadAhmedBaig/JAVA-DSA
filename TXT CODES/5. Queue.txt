@@ -1,0 +1,85 @@
+class Queue{
+class Node{
+int data;
+Node next;
+
+Node(int d){
+data = d;
+next = null;
+}
+}
+
+Node head = null;
+Node tail = null;
+
+public static void main(String[] a){
+Queue q = new Queue();
+q.Enqueue(14);
+q.Enqueue(15);
+q.Enqueue(17);
+q.Enqueue(18);
+q.display();
+q.Dequeue();
+q.display();
+q.Search(17);
+q.Search(19);
+
+}
+void Enqueue(int d){
+Node n = new Node(d);
+if(head == null){
+head = n;
+tail = n;
+}
+else{
+tail.next = n;
+tail = n;
+}
+}
+
+void Dequeue(){
+if(head == null){
+System.out.println("Queue is Empty!!!");
+}
+else{
+head = head.next;
+}
+}
+
+void Search(int val){
+int c=-1;
+if(head==null){
+System.out.println("Queue is Empty!!!");
+}
+else{
+Node emp = head;
+while(emp != null){
+if(emp.data == val){
+c++;
+break;
+}
+emp = emp.next;
+}
+
+if(c == -1){
+System.out.println("Value not found!");
+}
+
+else{
+System.out.println("Value found!");
+}
+}
+}
+
+void display(){
+Node current = head;
+while(current!=null){
+System.out.print(current.data + "->");
+current = current.next;
+}
+System.out.println();
+}
+
+
+
+}

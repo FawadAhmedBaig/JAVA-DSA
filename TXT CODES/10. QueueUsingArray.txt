@@ -1,0 +1,87 @@
+class Queue{
+int front, rear, size , count;
+Object[] queue;
+
+Queue(int s){
+front = -1;
+rear = -1;
+size = s;
+queue = new Object[size];
+count = 0;
+}
+
+
+void queueEnqueue(Object val){
+if(count == size){
+System.out.println("Queue is Full!");
+return;
+}
+if(rear==size-1 || rear == -1){
+queue[0] = val;
+rear = 0;
+if(front == -1){
+front = 0;
+}
+}
+else{
+queue[++rear] = val;
+}
+count++;
+}
+
+public Object queueDequeue(){
+if(front==-1){
+System.out.println("Queue is Empty!");
+return 0;
+}
+Object tmp = queue[front];
+queue[front] = null;
+if(front==size-1){
+front = 0;
+}
+else if (front == rear){
+front = -1;
+rear = -1;
+}
+else{
+front++;
+}
+count--;
+return tmp;
+}
+
+public Object peek(){
+return queue[front];
+}
+
+public int size(){
+return count;
+}
+
+public void display(){
+for(int i = 0; i< size ; i++){
+System.out.print(queue[i] + " ");
+}
+System.out.println();
+}
+
+public static void main(String[] a){
+Queue q = new Queue(6);
+q.queueEnqueue(45);
+q.display();
+q.queueEnqueue(50);
+q.display();
+q.queueEnqueue(48);
+q.display();
+q.queueEnqueue(95);
+q.display();
+q.queueDequeue();
+q.display();
+q.queueDequeue();
+q.display();
+q.queueDequeue();
+q.display();
+System.out.println(q.peek());
+System.out.println(q.size());
+}
+}

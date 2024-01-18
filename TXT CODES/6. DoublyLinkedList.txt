@@ -1,0 +1,104 @@
+class DoublyLinkedList{
+class Node{
+int data;
+Node prev;
+Node next;
+Node(int d){
+data = d;
+prev = null;
+next = null;
+}
+}
+
+Node head = null;
+Node tail = null;
+
+void add(int val){
+Node n = new Node(val);
+if(head==null){
+head= n;
+tail= n;
+}
+else {
+tail.next = n;
+n.prev = tail;
+tail = n;
+}
+
+}
+void deleteFirst(){
+if(head==null){
+System.out.println("List is empty!!!");
+}
+else if(head==tail){
+head = null;
+tail = null;
+}
+else{
+head = head.next;
+head.prev = null;
+}
+}
+void deleteLast(){
+if(head==null){
+System.out.println("List is empty!!!");
+}
+else if(head==tail){
+head = null;
+tail = null;
+}
+else{
+tail = tail.prev;
+tail.next = null;
+}
+}
+
+
+void deleteByValue(int val){
+if(head==null){
+System.out.println("List is Empty!!!");
+}
+else if(head.data == val){
+deleteFirst();
+}
+
+else{
+Node current = head;
+while(current.next.data!=val && current.next!=null){
+current = current.next;
+}
+if(current.next==null){
+System.out.println("Value not found!");
+}
+else if(current.next.next==null){
+deleteLast();
+}
+else{
+current.next.next.prev = current;
+current.next = current.next.next;
+}
+}
+}
+
+void display(){
+Node current = head;
+while(current!=null){
+System.out.print(current.data + "->");
+current = current.next;
+}
+System.out.println("");
+}
+
+public static void main(String[] a){
+DoublyLinkedList dl = new DoublyLinkedList();
+dl.add(12);
+dl.add(67);
+dl.add(66);
+dl.add(23);
+dl.display();
+dl.deleteByValue(67);
+dl.display();
+
+}
+
+}

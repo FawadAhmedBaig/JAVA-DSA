@@ -1,0 +1,260 @@
+class CircularLinkedList{
+
+class Node{
+int data;
+Node next;
+
+Node(int d){
+data = d;
+next = null;
+}
+}
+
+int size, i, mid = 0;
+Node head=null;
+Node tail=null;
+
+void insertAtFirst(int val){
+Node n = new Node(val);
+if(head==null){
+head=n;
+head.next= head;
+tail = head;
+}
+else
+{
+n.next = head;
+head = n;
+tail.next = head;
+}
+size++;
+}
+
+void insertAtLast(int val){
+Node n = new Node(val);
+if(head==null){
+head=n;
+head.next= head;
+tail = head;
+}
+else
+{
+tail.next = n;
+tail = n;
+tail.next = head;
+}
+size++;
+}
+
+void insertAtMid(int val){
+Node n = new Node(val);
+if(head==null){
+head=n;
+head.next= head;
+tail = head;
+}
+else{
+mid = size/2;
+i = 0;
+Node current = head;
+Node prev = current;
+while(current.next != head ){
+if(i==mid){
+prev.next = n;
+n.next = current;
+break;
+}
+i++;
+prev = current;
+current = current.next;
+}
+size++;
+}
+}
+
+void insertAtIndex(int index , int val){
+i = 0;
+Node n = new Node(val);
+if(head==null){
+n.next = head;
+head.next = head;
+tail = head;
+}
+else{
+Node current = head;
+Node prev = current;
+while(current.next != head){
+if(i==index){
+prev.next = n;
+n.next = current;
+break;
+}
+i++;
+prev = current;
+current = current.next;
+}
+if(i==index){
+prev.next = n;
+n.next = current;
+
+}
+}
+size++;
+}
+
+void updateValue(int index, int val){
+int loc = -1;
+i = 0;
+if(head==null){
+System.out.println("List is empty!");
+}
+else{
+Node current = head;
+Node prev = current;
+while(current.next!= head){
+if(i==index){
+current.data = val;
+System.out.println("The value at index " + i + "is updated to" + val);
+loc++;
+return;
+}
+
+i++;
+prev = current;
+current = current.next;
+}
+if(i==index){
+current.data = val;
+System.out.println("The value at index " + i + " is updated to : " + val);
+loc++;
+return;
+}
+if(loc==-1){
+System.out.println("index not found!");
+}
+}
+}
+
+void delFromFirst(){
+if(head==null){
+System.out.println("List is empty!");
+}
+else{
+head = head.next;
+tail.next = head;
+size--;
+}
+}
+
+void delFromLast(){
+if(head==null){
+System.out.println("List is empty!");
+}
+else{
+Node current = head;
+Node prev = current;
+while(current.next != head){
+prev = current;
+current = current.next;
+}
+prev.next = head;
+tail = prev;
+size--;
+}
+}
+
+void delFromMid(){
+i = 0;
+if(head==null){
+System.out.println("List is empty!");
+}
+else{
+mid = size/2;
+Node current = head;
+Node prev = current;
+while(current.next!= head){
+if(i==mid){
+current = current.next;
+prev.next = current;
+break;
+}
+i++;
+prev = current;
+current = current.next;
+}
+}
+size--;
+}
+
+void delFromIndex(int index){
+i = 0;
+if(head==null){
+System.out.println("List is empty!");
+}
+else{
+Node current = head;
+Node prev = current;
+while(current.next!= head){
+if(i==index){
+current = current.next;
+prev.next = current;
+}
+i++;
+prev = current;
+current = current.next;
+}
+if(i==index){
+prev.next = head;
+tail = prev;
+}
+}
+size--;
+}
+
+void display(){
+if(head==null){
+System.out.println("List is empty!");
+}
+else{
+Node current = head;
+while(current.next!=head){
+System.out.print(current.data + "->");
+current = current.next;
+}
+System.out.print(current.data);
+System.out.println();
+}
+}
+
+public static void main(String[] a){
+CircularLinkedList cl = new CircularLinkedList();
+cl.insertAtFirst(23);
+cl.display();
+cl.insertAtFirst(12);
+cl.display();
+cl.insertAtLast(55);
+cl.display();
+cl.insertAtLast(34);
+cl.display();
+cl.insertAtMid(77);
+cl.display();
+cl.insertAtIndex(3,78);
+cl.display();
+cl.updateValue(7,89);
+cl.display();
+
+cl.delFromFirst();
+cl.display();
+cl.delFromLast();
+cl.display();
+cl.insertAtLast(99);
+cl.display();
+cl.delFromMid();
+cl.display();
+cl.delFromIndex(2);
+cl.display();
+
+
+}
+
+}

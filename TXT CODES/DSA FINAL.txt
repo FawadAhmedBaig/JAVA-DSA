@@ -1,0 +1,197 @@
+
+class Array{
+int[] arr = {2,4,6,8,10};
+int N = arr.length;
+
+
+void binarySearch(int val){
+int loc = -1;
+int mid = 0;
+int start = 0;
+int end = N-1;
+while(start<=end){
+mid = (start+end)/2;
+if(val == arr[mid]){
+loc = mid;
+break;
+}
+else if(val>arr[mid]){
+start = mid+1;
+}
+else{
+end = mid-1;
+}
+}
+
+if(loc == -1)
+System.out.println("Value not found!");
+else
+System.out.println("Value found at index : " + loc);
+}
+
+}
+
+class doubleCircularLinkedList{
+class Node{
+int data;
+Node next;
+Node prev;
+
+Node(int d){
+data = d;
+next = null;
+prev = null;
+}
+}
+Node head = null;
+Node tail = null;
+int size = 0;
+
+void insert(int val){
+Node n = new Node(val);
+if(head==null){
+head = n;
+head.next = head;
+head.prev = head;
+tail = head;
+}
+else{
+tail.next = n;
+n.prev = tail;
+tail = n;
+tail.next = head;
+head.prev = tail;
+}
+size++;
+}
+void deleteByValue(int val){
+if(head==null){
+System.out.println("List is Empty!");
+}
+else{
+int loc = -1;
+Node current = head;
+Node prev = current;
+while(current!=tail){
+if(current.data == val){
+current = current.next;
+prev.next = current;
+current.prev = prev;
+size--;
+loc++;
+break;
+}
+
+prev = current;
+current = current.next;
+}
+if(current.data == val){
+current = current.next;
+prev.next = current;
+current.prev = prev;
+size--;
+loc++;
+}
+if(loc==-1){
+System.out.println("Value Does Not Exist");
+}
+}
+}
+
+void display(){
+Node current = head;
+while(current.next!=head){
+System.out.print(current.data + " -> ");
+current = current.next;
+}
+System.out.println(current.data);
+}
+
+}
+
+class BST{
+class Node{
+int key;
+Node right;
+Node left;
+
+Node(int k){
+key = k;
+right = null;
+left = null;
+}
+}
+
+Node root;
+
+BST(){
+root = null;
+}
+
+void insert(int key){
+root = insert_Recursive(root, key);
+}
+
+Node insert_Recursive(Node root, int key){
+if(root == null){
+root = new Node(key);
+return root;
+}
+if(root.key>key){
+root.left = insert_Recursive(root.left, key);
+}
+else if(root.key<key){
+root.right = insert_Recursive(root.right, key);
+}
+return root;
+}
+
+void inorder(){
+inorder_Recursive(root);
+System.out.println();
+}
+
+void inorder_Recursive(Node root){
+if(root!=null){
+inorder_Recursive(root.left);
+System.out.print(root.key + " ");
+inorder_Recursive(root.right);
+}
+}
+
+}
+
+class Main{
+public static void main(String[] args){
+//arr = {2,4,6,8,10};
+System.out.println("DSA LAB FINAL");
+System.out.println("Reg.no: 049");
+Array ar = new Array();
+System.out.println("\n-----Q.no.1----");
+ar.binarySearch(6);
+ar.binarySearch(7);
+
+System.out.println("\n-----Q.no.2----");
+doubleCircularLinkedList dcl = new doubleCircularLinkedList();
+
+dcl.insert(23);
+dcl.insert(93);
+dcl.insert(73);
+dcl.insert(99);
+dcl.display();
+dcl.deleteByValue(93);
+dcl.display();
+dcl.deleteByValue(30);
+dcl.deleteByValue(99);
+dcl.display();
+
+System.out.println("\n-----Q.no.3----");
+BST b = new BST();
+b.insert(34);
+b.insert(74);
+b.insert(84);
+b.insert(77);
+b.inorder();
+System.out.println();
+}
+}

@@ -1,0 +1,100 @@
+class LinkedList1{
+class Node{
+ int data;
+ Node next;
+
+Node(int d){
+data = d;
+next = null;
+}
+}
+
+ Node head = null;
+ Node tail = null;
+
+
+public static void main(String[] a){
+LinkedList1 L = new LinkedList1();
+L.insertAtFirst(14);
+L.insertAtFirst(15);
+L.insertAtFirst(155);
+L.display();
+L.deleteFirst();
+L.display();
+L.deleteLast();
+L.display();
+L.deleteLast();
+L.display();
+}
+
+ void insertAtFirst(int da){
+Node newnode = new Node(da);
+if(head==null){
+head = newnode;
+tail = newnode;
+}
+else{
+newnode.next = head;
+head = newnode;
+}
+}
+
+ void insertLast(int value){
+Node newnode = new Node(value);
+newnode.data = value;
+newnode.next = null;
+if(head== null){
+head = newnode;
+tail = newnode;
+return;
+}
+else
+{
+tail.next = newnode;
+tail = newnode;
+}
+}
+
+
+ void deleteFirst(){
+if(head==null){
+System.out.println("List is Empty!!!");
+}
+else if(head==tail){
+head = null;
+tail = null;
+}
+else{
+head = head.next;
+}
+}
+
+ void deleteLast(){
+if(head==null){
+System.out.println("List is Empty!!!");
+}
+else if(head==tail){
+head = null;
+tail = null;
+}
+else{
+Node current = head;
+while(current.next != tail){
+current = current.next;
+}
+current.next = null;
+tail = current;
+}
+}
+
+ void display(){
+Node current = head;
+System.out.println("");
+while(current!=null){
+System.out.print(current.data + "->");
+current = current.next;
+}
+System.out.println("");
+}
+
+}

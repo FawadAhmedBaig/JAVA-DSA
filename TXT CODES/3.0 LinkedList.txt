@@ -1,0 +1,61 @@
+//LinkedList
+class Node{
+int data;
+Node next;
+}
+
+class LinkedList{
+static Node head;
+static Node tail;
+
+static void insertLast(int value){
+Node newnode = new Node();
+newnode.data = value;
+newnode.next = null;
+if(head== null){
+head = newnode;
+tail = newnode;
+return;
+}
+else
+{
+tail.next = newnode;
+tail = newnode;
+}
+}
+
+static void insertAfter(Node prev_node , int data){
+if(prev_node==null){
+System.out.print("The previous Node cannot be null.");
+return;
+}
+
+Node new_node = new Node();
+new_node.data = data;
+new_node.next = prev_node.next;
+prev_node.next = new_node;
+
+}
+
+static void display(){
+Node current = head;
+while(current!=null){
+System.out.print(current.data + " ");
+current = current.next;
+}
+System.out.print(" ");
+}
+
+public static void main(String[] a){
+insertLast(4);
+insertLast(54);
+insertLast(1);
+Node node54 = head.next;
+insertAfter(node54, 34);
+display();
+}
+
+
+
+
+}

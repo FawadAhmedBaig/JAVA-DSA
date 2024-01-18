@@ -1,0 +1,81 @@
+class StackUsingArray{
+int[] arr;
+int size;
+int index = 0;
+
+StackUsingArray(int s){
+size =s;
+arr = new int[s];
+}
+
+void push(int val){
+if(isFull()){
+System.out.println("Stack is Full!");
+}
+else{
+arr[index] = val;
+index++;
+}
+}
+
+int pop(){
+if(isEmpty()){
+System.out.println("Stack is Empty!");
+}
+return arr[--index];
+}
+
+void peek(){
+if(isEmpty()){
+System.out.println("Stack is Empty!");
+}
+System.out.println(arr[index -1]);
+}
+
+void display(){
+if(isEmpty()){
+System.out.println("Stack is Empty!");
+}
+else
+for(int i = 0; i<index ; i++){
+System.out.print(arr[i] + " ");
+}
+System.out.println();
+}
+
+void size(){
+System.out.println("The size of stack is: "+ size);
+}
+
+boolean isFull(){
+if(index==size){
+return true;
+}
+return false;
+}
+
+boolean isEmpty(){
+if(index==0){
+return true;
+}
+return false;
+}
+
+public static void main(String[] a){
+StackUsingArray S = new StackUsingArray(5);
+S.push(23);
+S.push(53);
+S.push(23);
+S.push(53);
+S.push(45);
+S.push(77);
+S.display();
+S.peek();
+S.pop();
+S.display();
+S.peek();
+S.pop();
+S.display();
+}
+
+}
